@@ -1,0 +1,40 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.equation-item-row {
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
+
+.equation-item {
+  display:flex;
+  margin-left: 10rpx;
+  justify-content: center;
+}
+.solve-button{
+  justify-content: center;
+  align-items: center;
+}
+
+.body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
