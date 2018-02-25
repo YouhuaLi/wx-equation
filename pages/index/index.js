@@ -4,10 +4,14 @@ const app = getApp()
 
 Page({
   data: {
-    equationResult: {},
     userInfo: {},
     hasUserInfo: false,
     numberOfEquation: 1,
+    requestSuccess: false,
+    rootPlot: '',
+    altForms: '',
+    realSolution: '',
+    complexSolution: '',
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
@@ -52,26 +56,34 @@ Page({
     var self = this
     wx.request({
       url: 'https://api.seniverse.com/v3/weather/now.json?key=j7hypthtk9wgvhtp&location=' + "shanghai" + '&language=zh-Hans&unit=c',
+      // wfa-api request url
+      // url: 'https://api.wfa_api.com/caltest?qtype=equation&qparams=...
       success: function(result) {
         console.log('request success', result)
+        var mockRequest = {
+          rootPlot: 'http://www4f.wolframalpha.com/Calculate/MSP/MSP43071f3cgg70cif650860000468ggch55cgh55i4?MSPStoreType=image/gif&s=39',
+          altForms: '-2 (246 x^3 + 5) = 0',
+          realSolution: 'x = -(5/246)^(1/3)',
+          complexSolution: 'x = -(-1)^(2/3) (5/246)^(1/3)'
+        }
         self.setData({
-          equationResult: ["100", "3+9i"]
-          }
-        )
+          requestSuccess: true,
+          rootPlot: mockRequest.rootPlot,
+          altForms: mockRequest.altForms,
+          realSolution: mockRequest.realSolution,
+          complexSolution: mockRequest.complexSolution
+        })
       }
-    }
-    )
+    })
   },
   addEquation: function (event) {
     this.setData({
       numberOfEquation: this.data.numberOfEquation + 1
-      }
-    )
+    })
   },
   resetEquationNumber: function (event) {
     this.setData({
       numberOfEquation:  1
-    }
-    )
+    })
   },
 })

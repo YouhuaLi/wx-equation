@@ -2,7 +2,7 @@
 <view class="body">
   <text>请输入你的方程:</text>
 </view>
-<view wx:for="{{[1, 2, 3]}}" wx:for-item="i">
+<view class="container" wx:for="{{[1, 2, 3]}}" wx:for-item="i">
   <view wx:if="{{i <= numberOfEquation}}">
     <view class="equation-item-row">
       <view class="equation-item" style="flex-item">
@@ -17,16 +17,33 @@
     </view>
   </view>
 </view>
-<view class="body" justify-content="right">
+<view class="container" justify-content="right">
   <view wx:if="{{numberOfEquation < 3}}">
     <button bindtap="addEquation" size="mini">添加一个方程</button>
   </view>
   <view wx:else>
     <button bindtap="resetEquationNumber" size="mini">重来一遍</button>
   </view>
-</view>
-<view class="container">
   <button bindtap="solveEquation" size="mini">解方程</button>
 </view>
-结果是:
-<view wx:for="{{equationResult}}"> {{item}} </view>
+<view class="container">
+  <view class="div-results" wx:if="{{requestSuccess}}">
+    <text>结果是:</text>
+    <view class="div-pod" wx:if="{{rootPlot}}">
+      <text>坐标曲线</text>
+      <image class="img-root-plot" src="{{rootPlot}}"></image>
+    </view>
+    <view class="div-pod" wx:if="{{altForms}}">
+      <text>变换式</text>
+      <view> {{altForms}} </view>
+    </view>
+    <view class="div-pod" wx:if="{{realSolution}}">
+      <text>实数解</text>
+      <view> {{realSolution}} </view>
+    </view>
+    <view class="div-pod" wx:if="{{complexSolution}}">
+      <text>复数解</text>
+      <view> {{complexSolution}} </view>
+    </view>
+  </view>
+</view>
