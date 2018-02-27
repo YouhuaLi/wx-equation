@@ -38,3 +38,9 @@
     display: flex;
     justify-content: center;
 }
+
+.img-root-plot{
+  width: 100%; 
+  background-color: #eeeeee;
+  display: block;
+}
