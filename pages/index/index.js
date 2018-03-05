@@ -55,23 +55,25 @@ Page({
     console.log('event value is:', event.detail.value)
     var self = this
     wx.request({
-      url: 'https://api.seniverse.com/v3/weather/now.json?key=j7hypthtk9wgvhtp&location=' + "shanghai" + '&language=zh-Hans&unit=c',
-      // wfa-api request url
-      // url: 'https://api.wfa_api.com/caltest?qtype=equation&qparams=...
+      // wfa-api request test url
+      url: 'https://lyh-api.gameharbor.com.cn/caltest',
+      method: "GET",
+      //dataType: "json",
+      //data: '{"qtype": "equation", "qparams": "x^3-1=0"}',
       success: function(result) {
         console.log('request success', result)
         var mockRequest = {
-          rootPlot: 'http://www4f.wolframalpha.com/Calculate/MSP/MSP43071f3cgg70cif650860000468ggch55cgh55i4?MSPStoreType=image/gif&s=39',
-          altForms: '-2 (246 x^3 + 5) = 0',
-          realSolution: 'x = -(5/246)^(1/3)',
-          complexSolution: 'x = -(-1)^(2/3) (5/246)^(1/3)'
+          //rootPlot: 'http://www4f.wolframalpha.com/Calculate/MSP/MSP43071f3cgg70cif650860000468ggch55cgh55i4?MSPStoreType=image/gif&s=39',
+          error: false,
+          msg: "api调用出错",
         }
         self.setData({
           requestSuccess: true,
-          rootPlot: mockRequest.rootPlot,
-          altForms: mockRequest.altForms,
-          realSolution: mockRequest.realSolution,
-          complexSolution: mockRequest.complexSolution
+          requestMsg: mockRequest.msg,
+          realRootsCount: Math.round(Math.random() * 4),
+          realRoots: ["1", "sqrt(2)", "-3.334512323"],
+          complexRootsCount: Math.round(Math.random() * 4),
+          complexRoots: ["3+i", "100-i", "3.5+3i"], 
         })
       }
     })
@@ -83,7 +85,8 @@ Page({
   },
   resetEquationNumber: function (event) {
     this.setData({
-      numberOfEquation:  1
+      numberOfEquation:  1,
+      requestSuccess: false
     })
   },
 })
