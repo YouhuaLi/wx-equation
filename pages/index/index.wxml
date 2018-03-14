@@ -7,11 +7,11 @@
     <view wx:if="{{i <= numberOfEquation}}">
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__bd" style="flex-item">
-          <input class="weui-input" placeholder="x^2+x-2" focus='true' maxlength="30" />
+          <input id="e{{i}}_left" class="weui-input" bindinput="bindKeyInput_left" placeholder="x^3" maxlength="30" />
         </view>
         <view class="weui-label">=</view>
         <view class="weui-cell__bd" style="flex-item">
-          <input class="weui-input" placeholder="0" maxlength="30" />
+          <input id="e{{i}}_right" class="weui-input" bindinput="bindKeyInput_right" placeholder="-8" maxlength="30" />
         </view>
       </view>
     </view>
@@ -30,7 +30,6 @@
       <view class="weui-cells weui-cells_after-title" >
         <view class="weui-cells weui-cells_after-title" wx:for="{{realRootsCount}}" wx:key="*this">
           <view class="weui-cell">
-            <view class="weui-cell__bd">X{{index}} = </view>
             <view class="weui-cell__ft">{{realRoots[index]}}</view>
           </view>
         </view>
@@ -39,7 +38,6 @@
       <view class="weui-cells weui-cells_after-title">    
         <view class="weui-cells weui-cells_after-title" wx:for="{{complexRootsCount}}" wx:key="*this">
           <view class="weui-cell">
-            <view class="weui-cell__bd">X{{index}} = </view>
             <view class="weui-cell__ft">{{complexRoots[index]}}</view>
           </view>
         </view>

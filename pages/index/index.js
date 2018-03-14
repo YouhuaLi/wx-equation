@@ -12,6 +12,12 @@ Page({
     altForms: '',
     realSolution: '',
     complexSolution: '',
+    e1_left: "x^3",
+    e1_right: "-8",
+    e2_left: "",
+    e2_right: "",
+    e3_left: "",
+    e3_right: "",
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
@@ -52,28 +58,32 @@ Page({
     })
   },
   solveEquation: function(event) {
-    console.log('event value is:', event.detail.value)
+    //console.log('event value is:', event.detail.value)
     var self = this
     wx.request({
       // wfa-api request test url
-      url: 'https://lyh-api.gameharbor.com.cn/caltest',
-      method: "GET",
-      //dataType: "json",
-      //data: '{"qtype": "equation", "qparams": "x^3-1=0"}',
+      url: 'https://lyh-api.gameharbor.com.cn/solve',
+      method: "POST",
+      dataType: "json",
+      data: '{"e1_left": "' + this.data.e1_left + '", "e1_right": "' + this.data.e1_right + '"}',
+     //console.log('data is:', data),
       success: function(result) {
-        console.log('request success', result)
-        var mockRequest = {
-          //rootPlot: 'http://www4f.wolframalpha.com/Calculate/MSP/MSP43071f3cgg70cif650860000468ggch55cgh55i4?MSPStoreType=image/gif&s=39',
-          error: false,
-          msg: "api调用出错",
+        console.log("result data is:", result.data)   
+        if (!result.data.real_roots || result.data.real_roots == "null"){
+          console.log("real_roots data is:", (!result.data.real_roots || result.data.real_roots == "null"))     
+          result.data.real_roots=[]
+        }
+        if (!result.data.complex_roots || result.data.complex_roots == "null") {
+          console.log("complex_roots data is:", result.data.complex_roots)
+          result.data.complex_roots = []
         }
         self.setData({
-          requestSuccess: true,
-          requestMsg: mockRequest.msg,
-          realRootsCount: Math.round(Math.random() * 4),
-          realRoots: ["1", "sqrt(2)", "-3.334512323"],
-          complexRootsCount: Math.round(Math.random() * 4),
-          complexRoots: ["3+i", "100-i", "3.5+3i"], 
+          requestSuccess: !result.data.error,
+          requestMsg: "test",
+          realRootsCount: result.data.real_roots.length,
+          realRoots: result.data.real_roots,
+          complexRootsCount: result.data.complex_roots.length,
+          complexRoots: result.data.complex_roots, 
         })
       }
     })
@@ -88,5 +98,45 @@ Page({
       numberOfEquation:  1,
       requestSuccess: false
     })
+  },
+  bindKeyInput_left: function (e) {
+    //console.log(e);
+    switch( e.target.id ){
+      case "e1_left":
+        this.setData({
+          e1_left: e.detail.value
+        });
+        break;
+      case "e2_left":
+      //console.log("update e2 left")
+      this.setData({
+        e2_left: e.detail.value
+      });
+      break;
+      case "e3_left":
+        this.setData({
+          e3_left: e.detail.value
+        });
+    }
+
+  },
+  bindKeyInput_right: function (e) {
+    switch (e.target.id) {
+      case "e1_right":
+        this.setData({
+          e1_right: e.detail.value
+        });
+        break;
+      case "e2_right":
+        //console.log("update e2 right")
+        this.setData({
+          e2_right: e.detail.value
+        });
+        break;
+      case "e3_right":
+        this.setData({
+          e3_right: e.detail.value
+        });
+    }
   },
 })
