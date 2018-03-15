@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var sprintf = require('sprintf.js').sprintf
 const app = getApp()
 
 Page({
@@ -65,7 +66,7 @@ Page({
       url: 'https://lyh-api.gameharbor.com.cn/solve',
       method: "POST",
       dataType: "json",
-      data: '{"e1_left": "' + this.data.e1_left + '", "e1_right": "' + this.data.e1_right + '"}',
+      data: sprintf('{"e1_left": "%1s", "e1_right": "%2s", "e2_left": "%3s", "e2_right": "%4s", "e3_left": "%5s", "e3_right": "%6s"}', this.data.e1_left, this.data.e1_right, this.data.e2_left, this.data.e2_right, this.data.e3_left, this.data.e3_right),
      //console.log('data is:', data),
       success: function(result) {
         console.log("result data is:", result.data)   
